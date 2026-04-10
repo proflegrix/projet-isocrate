@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet Isocrate — Concours d'éloquence scolaire</title>
+  <meta name="description" content="Un concours d'éloquence pour les élèves de 4e, 3e et Seconde, organisé par l'Académie de Nantes en partenariat avec le Barreau de Nantes, le CDAD 44 et Ose ton futur." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bleu: #0f2545;
+      --rouge: #C0392B;
+      --texte: #111;
+      --texte-sec: #666;
+      --texte-ter: #999;
+      --bordure: #e8e8e4;
+      --fond: #ffffff;
+      --fond-sec: #fafaf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--texte);
+      background: var(--fond);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--bordure);
+      background: var(--fond);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--bleu);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--texte-sec);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--bleu); }
+    .nav-presse {
+      background: var(--rouge);
+      color: #fff !important;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 500 !important;
+    }
+    .nav-presse:hover { opacity: 0.88; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--texte); border-radius: 2px; }
+
+    /* HERO */
+    .hero {
+      background: var(--bleu);
+      padding: 88px 48px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -100px; right: 120px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.035);
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rouge);
+      font-weight: 500;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--rouge);
+    }
+    .hero-title {
+      font-size: 58px;
+      line-height: 1.04;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 28px;
+      letter-spacing: -0.025em;
+      max-width: 680px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.58);
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 44px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-white {
+      background: #fff;
+      color: var(--bleu);
+      padding: 14px 30px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      transition: opacity 0.15s;
+    }
+    .btn-white:hover { opacity: 0.9; }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.07); }
+    .hero-quote {
+      margin-top: 60px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      max-width: 640px;
+    }
+    .q-mark {
+      font-family: 'EB Garamond', serif;
+      font-size: 52px;
+      color: var(--rouge);
+      line-height: 0.9;
+      flex-shrink: 0;
+    }
+    .q-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+    .q-text cite {
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--bordure);
+    }
+    .stat {
+      padding: 36px 48px;
+      text-align: center;
+      border-right: 1px solid var(--bordure);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-n {
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--bleu);
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+    .stat-l {
+      font-size: 12px;
+      color: var(--texte-ter);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* THÈME */
+    .theme-band {
+      background: var(--bleu);
+      padding: 52px 48px;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .theme-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rouge);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .theme-q {
+      font-family: 'EB Garamond', serif;
+      font-size: 34px;
+      color: #fff;
+      line-height: 1.2;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+    .theme-body {
+      font-size: 15px;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    /* SECTION */
+    section {
+      padding: 64px 48px;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .s-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rouge);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .s-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--bleu);
+      margin-bottom: 16px;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+    .s-body {
+      font-size: 15px;
+      color: var(--texte-sec);
+      max-width: 600px;
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+
+    /* ÉTAPES */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .step {
+      border: 1px solid var(--bordure);
+      border-radius: 6px;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .step::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--bleu);
+    }
+    .step-n { font-size: 11px; font-weight: 600; color: #ccc; letter-spacing: 0.1em; margin-bottom: 14px; }
+    .step-t { font-size: 14px; font-weight: 500; color: var(--bleu); margin-bottom: 8px; }
+    .step-b { font-size: 13px; color: #888; line-height: 1.65; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .t-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 28px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--bordure);
+      align-items: start;
+    }
+    .t-row:last-child { border-bottom: none; }
+    .t-date { font-size: 13px; font-weight: 500; color: var(--bleu); line-height: 1.4; }
+    .t-desc { font-size: 14px; color: var(--texte-sec); }
+    .t-desc strong { font-weight: 500; color: var(--texte); display: block; margin-bottom: 3px; }
+
+    /* LIEU */
+    .lieu-card {
+      margin-top: 32px;
+      border: 1px solid var(--bordure);
+      border-radius: 6px;
+      padding: 28px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--fond-sec);
+    }
+    .lieu-name { font-size: 22px; font-weight: 600; color: var(--bleu); letter-spacing: -0.01em; margin-bottom: 5px; }
+    .lieu-sub { font-size: 13px; color: var(--texte-ter); }
+    .lieu-badge {
+      background: var(--bleu);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .lieu-badge span { display: block; font-size: 11px; font-weight: 400; opacity: 0.6; margin-top: 3px; }
+
+    /* PARTENAIRES */
+    .partners-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .p-card { border: 1px solid var(--bordure); border-radius: 6px; padding: 24px 26px; }
+    .p-card-t { font-size: 14px; font-weight: 500; color: var(--bleu); margin-bottom: 8px; }
+    .p-card-b { font-size: 13px; color: #888; line-height: 1.65; }
+    .tranqs-card {
+      margin-top: 14px;
+      background: var(--fond-sec);
+      border: 1px solid var(--bordure);
+      border-left: 3px solid var(--rouge);
+      border-radius: 0 6px 6px 0;
+      padding: 20px 24px;
+    }
+    .tranqs-t { font-size: 13px; font-weight: 500; color: var(--bleu); margin-bottom: 6px; }
+    .tranqs-b { font-size: 13px; color: #888; line-height: 1.65; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .c-card { border: 1px solid var(--bordure); border-radius: 6px; padding: 26px; }
+    .c-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--bleu); color: #fff;
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; letter-spacing: 0.03em;
+    }
+    .c-name { font-size: 16px; font-weight: 500; color: var(--bleu); margin-bottom: 3px; }
+    .c-role { font-size: 12px; color: #bbb; margin-bottom: 14px; line-height: 1.5; }
+    .c-mail a { font-size: 14px; color: var(--rouge); text-decoration: none; }
+    .c-mail a:hover { text-decoration: underline; }
+
+    /* PRESSE */
+    .presse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .presse-items { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .presse-item {
+      font-size: 13px; color: var(--texte-sec);
+      background: var(--fond-sec); border: 1px solid var(--bordure);
+      border-radius: 4px; padding: 8px 18px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .f-brand { font-size: 15px; font-weight: 600; color: var(--bleu); letter-spacing: -0.01em; }
+    .f-meta { font-size: 12px; color: #ccc; text-align: right; line-height: 1.65; }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      nav, .hero, section, .theme-band, footer { padding-left: 20px; padding-right: 20px; }
+      .stats .stat { padding: 24px 20px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 53px; left: 0; right: 0; background: var(--fond); border-bottom: 1px solid var(--bordure); padding: 16px 20px; gap: 14px; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .hero-title { font-size: 36px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--bordure); }
+      .stat:last-child { border-bottom: none; }
+      .steps, .partners-grid, .contact-grid, .presse-grid { grid-template-columns: 1fr; }
+      .t-row { grid-template-columns: 1fr; gap: 6px; }
+      .lieu-card { flex-direction: column; gap: 20px; align-items: flex-start; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .f-meta { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-brand">Projet Isocrate</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#concours">Le concours</a></li>
+    <li><a href="#calendrier">Calendrier</a></li>
+    <li><a href="#partenaires">Partenaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#presse" class="nav-presse">Presse</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Académie de Nantes · 2025–2026</p>
+  <h1 class="hero-title">L'art de la parole,<br><em>au cœur de l'école</em></h1>
+  <p class="hero-sub">Un concours d'éloquence pour les élèves de 4<sup>e</sup>, 3<sup>e</sup> et Seconde — organisé avec le Barreau de Nantes, le CDAD 44 et Ose ton futur.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-white">Rejoindre le projet</a>
+    <a href="#concours" class="btn-outline">Découvrir</a>
+  </div>
+  <div class="hero-quote">
+    <span class="q-mark">"</span>
+    <div>
+      <p class="q-text">La puissance de la parole est si grande qu'elle peut rendre grandes les petites choses, et petites les grandes.<cite>Isocrate, Éloge d'Hélène</cite></p>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <p class="stat-n">~20</p>
+    <p class="stat-l">Établissements</p>
+  </div>
+  <div class="stat">
+    <p class="stat-n">3 000+</p>
+    <p class="stat-l">Élèves engagés</p>
+  </div>
+  <div class="stat">
+    <p class="stat-n">2018</p>
+    <p class="stat-l">Année de création</p>
+  </div>
+</div>
+
+<div class="theme-band">
+  <p class="theme-tag">Thème 2026</p>
+  <p class="theme-q">« Les droits de l'Homme, mais de quels Hommes ? »</p>
+  <p class="theme-body">Un thème éminemment politique pour forger la conscience citoyenne — en référence à Kerry James et son morceau <em>Au pays des Droits de l'Homme</em> (2009). Les élèves composent librement à partir de ce qui les engage, les indigne et les motive.</p>
+</div>
+
+<section id="concours">
+  <p class="s-tag">Le concours</p>
+  <h2 class="s-title">Prendre la parole, convaincre, s'affirmer</h2>
+  <p class="s-body">Depuis 2018, le Projet Isocrate invite les élèves à réfléchir à des enjeux de société et à s'exprimer en public. Les équipes (binômes ou trinômes) défendent une thèse en 5 à 7 minutes, sous format libre : discours, plaidoirie, poésie, slam.</p>
+  <div class="steps">
+    <div class="step">
+      <p class="step-n">01</p>
+      <p class="step-t">Inscription & préparation</p>
+      <p class="step-b">Inscriptions de septembre à décembre. Recherches et rédaction des textes dès le mois d'octobre.</p>
+    </div>
+    <div class="step">
+      <p class="step-n">02</p>
+      <p class="step-t">Intervenants & sélection</p>
+      <p class="step-b">Slammeurs et professionnels du droit interviennent en classe. Quarts et demi-finales au printemps.</p>
+    </div>
+    <div class="step">
+      <p class="step-n">03</p>
+      <p class="step-t">Grande finale</p>
+      <p class="step-b">5 juin 2026, Salon Mauduit, Nantes. Jury de personnalités, sur invitation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="calendrier">
+  <p class="s-tag">Calendrier</p>
+  <h2 class="s-title">Les dates à retenir</h2>
+  <div class="timeline">
+    <div class="t-row">
+      <p class="t-date">Sept. — Déc.</p>
+      <div class="t-desc"><strong>Inscriptions ouvertes</strong>Dépôt des candidatures par les enseignants référents. Contacter le coordinateur académique.</div>
+    </div>
+    <div class="t-row">
+      <p class="t-date">Fév. — Avr.</p>
+      <div class="t-desc"><strong>Intervenants & sélection</strong>Interventions en classe, quarts et demi-finales dans les établissements.</div>
+    </div>
+    <div class="t-row">
+      <p class="t-date">5 juin 2026<br>à 13h</p>
+      <div class="t-desc"><strong>Grande finale — sur invitation</strong>Salon Mauduit, Nantes. Remise des prix en soirée.</div>
+    </div>
+  </div>
+  <div class="lieu-card">
+    <div>
+      <p class="lieu-name">Salon Mauduit</p>
+      <p class="lieu-sub">Maison de l'Avocat · Nantes</p>
+    </div>
+    <div class="lieu-badge">
+      5 juin 2026<span>à partir de 13h · sur invitation</span>
+    </div>
+  </div>
+</section>
+
+<section id="partenaires">
+  <p class="s-tag">Partenaires</p>
+  <h2 class="s-title">Un projet institutionnel</h2>
+  <p class="s-body">Le Projet Isocrate ancre le concours dans la réalité des institutions et du monde professionnel grâce à un réseau de partenaires engagés.</p>
+  <div class="partners-grid">
+    <div class="p-card">
+      <p class="p-card-t">Académie de Nantes</p>
+      <p class="p-card-b">Partenaire institutionnel principal, l'Académie accompagne le projet depuis ses débuts sur l'ensemble du territoire académique.</p>
+    </div>
+    <div class="p-card">
+      <p class="p-card-t">Barreau de Nantes & Maison de l'Avocat</p>
+      <p class="p-card-b">La finale se tient aux Salons Mauduit. Les élèves expérimentent ce que signifie défendre une conviction avec rigueur face à des professionnels du droit.</p>
+    </div>
+    <div class="p-card">
+      <p class="p-card-t">CDAD 44</p>
+      <p class="p-card-b">Le Conseil Départemental d'Accès au Droit permet aux élèves de visiter le Palais de Justice et d'échanger avec des avocats, des juges et le Procureur de la République.</p>
+    </div>
+    <div class="p-card">
+      <p class="p-card-t">Ose ton futur</p>
+      <p class="p-card-b">Partenaire associatif qui accompagne les élèves dans la construction de leur parcours et dans la valorisation de l'engagement citoyen.</p>
+    </div>
+  </div>
+  <div class="tranqs-card">
+    <p class="tranqs-t">Intervenant artistique — TRANQ'S (association reconnue ADAGE)</p>
+    <p class="tranqs-b">Un slammeur de Saint-Nazaire intervient en classe depuis la première édition pour apporter confiance et maîtrise des mots à nos élèves.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="s-tag">Contact</p>
+  <h2 class="s-title">Rejoindre le projet</h2>
+  <p class="s-body">Enseignant, chef d'établissement, partenaire potentiel ? Contactez l'un des deux co-fondateurs du Projet Isocrate.</p>
+  <div class="contact-grid">
+    <div class="c-card">
+      <div class="c-avatar">PL</div>
+      <p class="c-name">Pierre Legrix</p>
+      <p class="c-role">Professeur de Lettres Classiques<br>Co-fondateur du Projet Isocrate</p>
+      <div class="c-mail"><a href="mailto:pierre.legrix@ac-nantes.fr">pierre.legrix@ac-nantes.fr</a></div>
+    </div>
+    <div class="c-card">
+      <div class="c-avatar">JM</div>
+      <p class="c-name">Jamel Merniz</p>
+      <p class="c-role">Professeur d'Histoire-Géographie-EMC<br>Co-fondateur du Projet Isocrate</p>
+      <div class="c-mail"><a href="mailto:jamel.merniz@ac-nantes.fr">jamel.merniz@ac-nantes.fr</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="presse">
+  <p class="s-tag">Presse</p>
+  <h2 class="s-title">Contact presse & ressources</h2>
+  <p class="s-body">Vous êtes journaliste ou chargé de communication ? Retrouvez ici les coordonnées et éléments disponibles pour couvrir le Projet Isocrate.</p>
+  <div class="presse-grid">
+    <div class="c-card">
+      <p class="p-card-t">Contact presse</p>
+      <p class="p-card-b" style="margin-top:8px;">Pierre Legrix, coordinateur<br><a href="mailto:pierre.legrix@ac-nantes.fr" style="color:#C0392B;text-decoration:none;">pierre.legrix@ac-nantes.fr</a></p>
+    </div>
+    <div class="c-card">
+      <p class="p-card-t">Informations pratiques</p>
+      <p class="p-card-b" style="margin-top:8px;">Grande finale · 5 juin 2026 à 13h<br>Salon Mauduit, Nantes<br>Accréditation sur demande</p>
+    </div>
+  </div>
+  <div class="presse-items">
+    <span class="presse-item">Dossier de presse</span>
+    <span class="presse-item">Logos haute définition</span>
+    <span class="presse-item">Photos des éditions précédentes</span>
+    <span class="presse-item">Citation officielle des partenaires</span>
+  </div>
+</section>
+
+<footer>
+  <span class="f-brand">Projet Isocrate</span>
+  <div class="f-meta">
+    <p>Académie de Nantes · 2025–2026</p>
+    <p>Barreau de Nantes · CDAD 44 · Ose ton futur</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>
